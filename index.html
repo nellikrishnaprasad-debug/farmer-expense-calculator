@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="te">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farmer Expense Calculator</title>
+
+<title>🌾 Smart Farmer Expense Manager</title>
 
 <style>
 *{
@@ -14,17 +15,17 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#f4f7f2;
+background:linear-gradient(135deg,#dff6dd,#f5fff0);
 padding:20px;
 }
 
 .container{
-max-width:500px;
+max-width:700px;
 margin:auto;
 background:#fff;
 padding:20px;
-border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,.15);
+border-radius:15px;
+box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 
 h1{
@@ -33,15 +34,30 @@ color:#2e7d32;
 margin-bottom:20px;
 }
 
-.lang{
-text-align:right;
-margin-bottom:15px;
+.section{
+margin-top:20px;
+padding:15px;
+background:#f8fff6;
+border-radius:10px;
+border-left:5px solid #2e7d32;
 }
 
-select,input{
+.section h2{
+color:#2e7d32;
+margin-bottom:15px;
+font-size:20px;
+}
+
+label{
+display:block;
+margin-top:12px;
+font-weight:bold;
+}
+
+input,select{
 width:100%;
 padding:12px;
-margin:8px 0;
+margin-top:5px;
 border:1px solid #ccc;
 border-radius:8px;
 font-size:16px;
@@ -50,174 +66,122 @@ font-size:16px;
 button{
 width:100%;
 padding:14px;
-margin-top:10px;
+margin-top:20px;
+background:#2e7d32;
+color:white;
 border:none;
 border-radius:8px;
-font-size:17px;
+font-size:18px;
 cursor:pointer;
 }
 
-.calc{
-background:#2e7d32;
-color:#fff;
-}
-
-.print{
-background:#1565c0;
-color:#fff;
+button:hover{
+background:#1b5e20;
 }
 
 .result{
 margin-top:20px;
-background:#e8f5e9;
 padding:15px;
-border-radius:8px;
+background:#e8f5e9;
+border-radius:10px;
 font-size:20px;
 font-weight:bold;
 text-align:center;
 }
 
-.report{
-margin-top:20px;
-padding:15px;
-background:#fafafa;
-border-radius:8px;
-line-height:1.8;
-}
-
 @media(max-width:600px){
+
 .container{
 padding:15px;
 }
+
 h1{
-font-size:22px;
+font-size:24px;
 }
+
 }
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<div class="lang">
-<select id="language" onchange="changeLanguage()">
-<option value="en">English</option>
-<option value="te">తెలుగు</option>
+<h1>🌾 Smart Farmer Expense Manager</h1>
+
+<div class="section">
+
+<h2>👨‍🌾 Farmer Details</h2>
+
+<label>Farmer Name</label>
+<input type="text" id="farmerName">
+
+<label>Village</label>
+<input type="text" id="village">
+
+<label>Crop Name</label>
+
+<select id="crop">
+
+<option>వరి</option>
+<option>పత్తి</option>
+<option>మొక్కజొన్న</option>
+<option>మిర్చి</option>
+<option>పసుపు</option>
+<option>ఇతర</option>
+
 </select>
+
+<label>Total Acres</label>
+<input type="number" id="acres">
+
+<label>Date</label>
+<input type="date" id="date">
+
 </div>
 
-<h1 id="title">Farmer Expense Calculator</h1>
+<div class="section">
 
-<label id="seedLabel">Seed Cost (₹)</label>
-<input type="number" id="seed" placeholder="0">
+<h2>💰 Expense Details</h2>
 
-<label id="fertLabel">Fertilizer Cost (₹)</label>
-<input type="number" id="fertilizer" placeholder="0">
+<label>Seed Cost (₹)</label>
+<input type="number" id="seed">
 
-<label id="labourLabel">Labour Cost (₹)</label>
-<input type="number" id="labour" placeholder="0">
+<label>Fertilizer Cost (₹)</label>
+<input type="number" id="fert">
 
-<label id="pestLabel">Pesticide Cost (₹)</label>
-<input type="number" id="pesticide" placeholder="0">
+<label>Labour Cost (₹)</label>
+<input type="number" id="labour">
 
-<label id="waterLabel">Irrigation Cost (₹)</label>
-<input type="number" id="irrigation" placeholder="0">
+<label>Pesticide Cost (₹)</label>
+<input type="number" id="pesticide">
 
-<button class="calc" onclick="calculate()" id="calcBtn">
-Calculate Total
+<label>Irrigation Cost (₹)</label>
+<input type="number" id="irrigation">
+
+<label>Tractor Cost (₹)</label>
+<input type="number" id="tractor">
+
+<label>Diesel Cost (₹)</label>
+<input type="number" id="diesel">
+
+<label>Other Expenses (₹)</label>
+<input type="number" id="other">
+
+</div>
+
+<button>
+Next ➜ Calculate
 </button>
 
-<div class="result" id="total">
-Total Cost: ₹0
-</div>
+<div class="result">
 
-<div class="report" id="report"></div>
-
-<button class="print" onclick="window.print()" id="printBtn">
-Print Report
-</button>
+Total Expense : ₹0
 
 </div>
 
-<script>
-
-let currentLanguage="en";
-
-const words={
-en:{
-title:"Farmer Expense Calculator",
-seed:"Seed Cost (₹)",
-fert:"Fertilizer Cost (₹)",
-labour:"Labour Cost (₹)",
-pest:"Pesticide Cost (₹)",
-water:"Irrigation Cost (₹)",
-calc:"Calculate Total",
-print:"Print Report",
-total:"Total Cost",
-report:"Expense Report"
-},
-te:{
-title:"రైతు ఖర్చుల కాలిక్యులేటర్",
-seed:"విత్తనాల ఖర్చు (₹)",
-fert:"ఎరువుల ఖర్చు (₹)",
-labour:"కూలీల ఖర్చు (₹)",
-pest:"పురుగుమందుల ఖర్చు (₹)",
-water:"నీటి ఖర్చు (₹)",
-calc:"మొత్తం లెక్కించు",
-print:"రిపోర్ట్ ప్రింట్ చేయండి",
-total:"మొత్తం ఖర్చు",
-report:"ఖర్చుల నివేదిక"
-}
-};
-
-function changeLanguage(){
-
-currentLanguage=document.getElementById("language").value;
-
-let t=words[currentLanguage];
-
-title.innerHTML=t.title;
-seedLabel.innerHTML=t.seed;
-fertLabel.innerHTML=t.fert;
-labourLabel.innerHTML=t.labour;
-pestLabel.innerHTML=t.pest;
-waterLabel.innerHTML=t.water;
-calcBtn.innerHTML=t.calc;
-printBtn.innerHTML=t.print;
-
-calculate();
-}
-
-function calculate(){
-
-let seed=Number(document.getElementById("seed").value)||0;
-let fert=Number(document.getElementById("fertilizer").value)||0;
-let labour=Number(document.getElementById("labour").value)||0;
-let pest=Number(document.getElementById("pesticide").value)||0;
-let water=Number(document.getElementById("irrigation").value)||0;
-
-let total=seed+fert+labour+pest+water;
-
-let t=words[currentLanguage];
-
-document.getElementById("total").innerHTML=
-t.total+": ₹"+total.toLocaleString();
-
-document.getElementById("report").innerHTML=`
-<h3>${t.report}</h3>
-<p>${t.seed}: ₹${seed.toLocaleString()}</p>
-<p>${t.fert}: ₹${fert.toLocaleString()}</p>
-<p>${t.labour}: ₹${labour.toLocaleString()}</p>
-<p>${t.pest}: ₹${pest.toLocaleString()}</p>
-<p>${t.water}: ₹${water.toLocaleString()}</p>
-<hr>
-<h2>${t.total}: ₹${total.toLocaleString()}</h2>
-`;
-
-}
-
-</script>
+</div>
 
 </body>
 </html>
