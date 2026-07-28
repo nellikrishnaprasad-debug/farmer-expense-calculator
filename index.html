@@ -250,11 +250,76 @@ document.getElementById(id).value = value;
 }
 
 window.onload = loadData;
+  let telugu = false;
+
+function changeLanguage(){
+
+telugu = !telugu;
+
+if(telugu){
+
+document.getElementById("langBtn").innerHTML="🌐 English";
+
+document.querySelector("h1").innerHTML="🌾 స్మార్ట్ రైతు ఖర్చుల కాలిక్యులేటర్";
+
+document.querySelectorAll("label")[0].innerHTML="రైతు పేరు";
+document.querySelectorAll("label")[1].innerHTML="గ్రామం";
+document.querySelectorAll("label")[2].innerHTML="పంట మొత్తం ఎకరాలు";
+document.querySelectorAll("label")[3].innerHTML="తేదీ";
+
+document.querySelectorAll("label")[4].innerHTML="విత్తనాల ఖర్చు";
+document.querySelectorAll("label")[5].innerHTML="ఎరువుల ఖర్చు";
+document.querySelectorAll("label")[6].innerHTML="కూలీల ఖర్చు";
+document.querySelectorAll("label")[7].innerHTML="పురుగుమందుల ఖర్చు";
+document.querySelectorAll("label")[8].innerHTML="నీటి ఖర్చు";
+document.querySelectorAll("label")[9].innerHTML="ట్రాక్టర్ ఖర్చు";
+document.querySelectorAll("label")[10].innerHTML="డీజిల్ ఖర్చు";
+document.querySelectorAll("label")[11].innerHTML="ఇతర ఖర్చులు";
+
+document.querySelectorAll("label")[12].innerHTML="మొత్తం దిగుబడి (క్వింటాళ్లు)";
+document.querySelectorAll("label")[13].innerHTML="క్వింటాల్ ధర";
+
+}else{
+
+document.getElementById("langBtn").innerHTML="🌐 తెలుగు";
+
+document.querySelector("h1").innerHTML="🌾 Smart Farmer Expense Manager";
+
+document.querySelectorAll("label")[0].innerHTML="Farmer Name";
+document.querySelectorAll("label")[1].innerHTML="Village";
+document.querySelectorAll("label")[2].innerHTML="Total Acres";
+document.querySelectorAll("label")[3].innerHTML="Date";
+
+document.querySelectorAll("label")[4].innerHTML="Seed Cost";
+document.querySelectorAll("label")[5].innerHTML="Fertilizer Cost";
+document.querySelectorAll("label")[6].innerHTML="Labour Cost";
+document.querySelectorAll("label")[7].innerHTML="Pesticide Cost";
+document.querySelectorAll("label")[8].innerHTML="Irrigation Cost";
+document.querySelectorAll("label")[9].innerHTML="Tractor Cost";
+document.querySelectorAll("label")[10].innerHTML="Diesel Cost";
+document.querySelectorAll("label")[11].innerHTML="Other Expenses";
+
+document.querySelectorAll("label")[12].innerHTML="Total Yield (Quintals)";
+document.querySelectorAll("label")[13].innerHTML="Price Per Quintal";
+
+}
+
+}
 </script>
 <body>
 
 <div class="container">
+<body>
 
+<div class="container">
+
+<button onclick="changeLanguage()" id="langBtn">
+🌐 తెలుగు
+</button>
+
+<h1>🌾 Smart Farmer Expense Manager</h1>
+
+<div class="section">
 <h1>🌾 Smart Farmer Expense Manager</h1>
 
 <div class="section">
