@@ -122,10 +122,26 @@ seed + fert + labour + pesticide +
 irrigation + tractor + diesel + other;
 
 let perAcre = totalExpense / acres;
+  let totalYield = Number(document.getElementById("yield").value) || 0;
+
+let price = Number(document.getElementById("price").value) || 0;
+
+let totalIncome = totalYield * price;
+
+let profitLoss = totalIncome - totalExpense;
 
 document.querySelector(".result").innerHTML =
-"Total Expense: ₹ " + totalExpense.toLocaleString() +
-"<br>Cost Per Acre: ₹ " + perAcre.toFixed(2);
+`
+<h2>🌾 Farm Report</h2>
+
+<p>Total Expense: ₹ ${totalExpense.toLocaleString()}</p>
+
+<p>Cost Per Acre: ₹ ${perAcre.toFixed(2)}</p>
+
+<p>Total Income: ₹ ${totalIncome.toLocaleString()}</p>
+
+<p>Profit / Loss: ₹ ${profitLoss.toLocaleString()}</p>
+`;
 
 }
 </script>
@@ -169,6 +185,7 @@ document.querySelector(".result").innerHTML =
 <div class="section">
 
 <h2>💰 Expense Details</h2>
+  
 
 <label>Seed Cost (₹)</label>
 <input type="number" id="seed">
@@ -196,9 +213,20 @@ document.querySelector(".result").innerHTML =
 
 </div>
 
-<button onclick="calculateExpense()">
+  <div class="section">
+
+<h2>📈 Income Details</h2>
+
+<label>Total Yield (Quintals)</label>
+<input type="number" id="yield">
+
+<label>Price Per Quintal (₹)</label>
+<input type="number" id="price">
+
+</div>
+  <button onclick="calculateExpense()">
 Calculate Expense
-</button>
+  </button>
 
 <div class="result">
 
