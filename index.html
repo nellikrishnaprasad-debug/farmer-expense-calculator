@@ -132,8 +132,11 @@ let totalIncome = totalYield * price;
 let profitLoss = totalIncome - totalExpense;
   let color = profitLoss >= 0 ? "green" : "red";
 
-document.querySelector(".result").innerHTML =
-`
+document.querySelector(".result").innerHTML = `...`;
+
+saveData();
+
+}
 <h2>🌾 Farm Report</h2>
 
 <p>Total Expense: ₹ ${totalExpense.toLocaleString()}</p>
@@ -215,6 +218,40 @@ newWindow.document.close();
 newWindow.print();
 
 }
+  function saveData() {
+
+const ids = [
+"farmerName","village","crop","date","acres",
+"seed","fert","labour","pesticide",
+"irrigation","tractor","diesel","other",
+"yield","price"
+];
+
+ids.forEach(id=>{
+localStorage.setItem(id, document.getElementById(id).value);
+});
+
+}
+
+function loadData() {
+
+const ids = [
+"farmerName","village","crop","date","acres",
+"seed","fert","labour","pesticide",
+"irrigation","tractor","diesel","other",
+"yield","price"
+];
+
+ids.forEach(id=>{
+let value = localStorage.getItem(id);
+if(value !== null){
+document.getElementById(id).value = value;
+}
+});
+
+}
+
+window.onload = loadData;
 </script>
 <body>
 
