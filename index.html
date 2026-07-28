@@ -104,6 +104,7 @@ font-size:24px;
 
 </head>
 <script>
+  
 function calculateExpense(){
 
 let seed = Number(document.getElementById("seed").value) || 0;
@@ -142,6 +143,73 @@ document.querySelector(".result").innerHTML =
 
 <p>Profit / Loss: ₹ ${profitLoss.toLocaleString()}</p>
 `;
+}
+function printReport(){
+
+let farmer = document.getElementById("farmerName").value || "N/A";
+let village = document.getElementById("village").value || "N/A";
+let crop = document.getElementById("crop").value || "N/A";
+let date = document.getElementById("date").value || "N/A";
+
+let report = document.querySelector(".result").innerHTML;
+
+let printContent = `
+<html>
+<head>
+<title>Farmer Report</title>
+
+<style>
+body{
+font-family:Arial;
+padding:20px;
+}
+
+h1{
+text-align:center;
+color:green;
+}
+
+.box{
+border:1px solid #ccc;
+padding:15px;
+border-radius:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🌾 Smart Farmer Report</h1>
+
+<div class="box">
+
+<h3>Farmer Details</h3>
+
+<p>Farmer Name: ${farmer}</p>
+<p>Village: ${village}</p>
+<p>Crop: ${crop}</p>
+<p>Date: ${date}</p>
+
+<hr>
+
+<h3>Calculation Report</h3>
+
+${report}
+
+</div>
+
+</body>
+</html>
+`;
+
+let newWindow = window.open();
+
+newWindow.document.write(printContent);
+
+newWindow.document.close();
+
+newWindow.print();
 
 }
 </script>
@@ -226,6 +294,9 @@ document.querySelector(".result").innerHTML =
 </div>
   <button onclick="calculateExpense()">
 Calculate Expense
+  </button>
+  <button onclick="printReport()">
+📄 Print Report
   </button>
 
 <div class="result">
