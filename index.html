@@ -13,33 +13,7 @@ padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
-<script>
-function calculateExpense(){
 
-let seed = Number(document.getElementById("seed").value) || 0;
-let fert = Number(document.getElementById("fert").value) || 0;
-let labour = Number(document.getElementById("labour").value) || 0;
-let pesticide = Number(document.getElementById("pesticide").value) || 0;
-let irrigation = Number(document.getElementById("irrigation").value) || 0;
-let tractor = Number(document.getElementById("tractor").value) || 0;
-let diesel = Number(document.getElementById("diesel").value) || 0;
-let other = Number(document.getElementById("other").value) || 0;
-
-let acres = Number(document.getElementById("acres").value) || 1;
-
-let totalExpense =
-seed + fert + labour + pesticide +
-irrigation + tractor + diesel + other;
-
-let expensePerAcre = totalExpense / acres;
-
-document.querySelector(".result").innerHTML =
-`
-<h2>₹ ${totalExpense.toLocaleString()}</h2>
-<p><b>Expense Per Acre:</b> ₹ ${expensePerAcre.toFixed(2)}</p>
-`;
-}
-</script>
 body{
 background:linear-gradient(135deg,#dff6dd,#f5fff0);
 padding:20px;
@@ -129,7 +103,32 @@ font-size:24px;
 </style>
 
 </head>
+<script>
+function calculateExpense(){
 
+let seed = Number(document.getElementById("seed").value) || 0;
+let fert = Number(document.getElementById("fert").value) || 0;
+let labour = Number(document.getElementById("labour").value) || 0;
+let pesticide = Number(document.getElementById("pesticide").value) || 0;
+let irrigation = Number(document.getElementById("irrigation").value) || 0;
+let tractor = Number(document.getElementById("tractor").value) || 0;
+let diesel = Number(document.getElementById("diesel").value) || 0;
+let other = Number(document.getElementById("other").value) || 0;
+
+let acres = Number(document.getElementById("acres").value) || 1;
+
+let totalExpense =
+seed + fert + labour + pesticide +
+irrigation + tractor + diesel + other;
+
+let perAcre = totalExpense / acres;
+
+document.querySelector(".result").innerHTML =
+"Total Expense: ₹ " + totalExpense.toLocaleString() +
+"<br>Cost Per Acre: ₹ " + perAcre.toFixed(2);
+
+}
+</script>
 <body>
 
 <div class="container">
