@@ -118,25 +118,20 @@ let other = Number(document.getElementById("other").value) || 0;
 
 let acres = Number(document.getElementById("acres").value) || 1;
 
-let totalExpense =
-seed + fert + labour + pesticide +
+let totalExpense = seed + fert + labour + pesticide +
 irrigation + tractor + diesel + other;
 
 let perAcre = totalExpense / acres;
-  let totalYield = Number(document.getElementById("yield").value) || 0;
 
+let totalYield = Number(document.getElementById("yield").value) || 0;
 let price = Number(document.getElementById("price").value) || 0;
 
 let totalIncome = totalYield * price;
-
 let profitLoss = totalIncome - totalExpense;
-  let color = profitLoss >= 0 ? "green" : "red";
 
-document.querySelector(".result").innerHTML = `...`;
+let color = profitLoss >= 0 ? "green" : "red";
 
-saveData();
-
-}
+document.querySelector(".result").innerHTML = `
 <h2>🌾 Farm Report</h2>
 
 <p>Total Expense: ₹ ${totalExpense.toLocaleString()}</p>
@@ -149,6 +144,9 @@ saveData();
 Profit / Loss: ₹ ${profitLoss.toLocaleString()}
 </p>
 `;
+
+saveData();
+
 }
 function printReport(){
 
