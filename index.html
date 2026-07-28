@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farmer Expense Calculator</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f7f2;
+padding:20px;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+h1{
+text-align:center;
+color:#2e7d32;
+margin-bottom:20px;
+}
+
+.lang{
+text-align:right;
+margin-bottom:15px;
+}
+
+select,input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+font-size:17px;
+cursor:pointer;
+}
+
+.calc{
+background:#2e7d32;
+color:#fff;
+}
+
+.print{
+background:#1565c0;
+color:#fff;
+}
+
+.result{
+margin-top:20px;
+background:#e8f5e9;
+padding:15px;
+border-radius:8px;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+}
+
+.report{
+margin-top:20px;
+padding:15px;
+background:#fafafa;
+border-radius:8px;
+line-height:1.8;
+}
+
+@media(max-width:600px){
+.container{
+padding:15px;
+}
+h1{
+font-size:22px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="lang">
+<select id="language" onchange="changeLanguage()">
+<option value="en">English</option>
+<option value="te">తెలుగు</option>
+</select>
+</div>
+
+<h1 id="title">Farmer Expense Calculator</h1>
+
+<label id="seedLabel">Seed Cost (₹)</label>
+<input type="number" id="seed" placeholder="0">
+
+<label id="fertLabel">Fertilizer Cost (₹)</label>
+<input type="number" id="fertilizer" placeholder="0">
+
+<label id="labourLabel">Labour Cost (₹)</label>
+<input type="number" id="labour" placeholder="0">
+
+<label id="pestLabel">Pesticide Cost (₹)</label>
+<input type="number" id="pesticide" placeholder="0">
+
+<label id="waterLabel">Irrigation Cost (₹)</label>
+<input type="number" id="irrigation" placeholder="0">
+
+<button class="calc" onclick="calculate()" id="calcBtn">
+Calculate Total
+</button>
+
+<div class="result" id="total">
+Total Cost: ₹0
+</div>
+
+<div class="report" id="report"></div>
+
+<button class="print" onclick="window.print()" id="printBtn">
+Print Report
+</button>
+
+</div>
+
+<script>
+
+let currentLanguage="en";
+
+const words={
+en:{
+title:"Farmer Expense Calculator",
+seed:"Seed Cost (₹)",
+fert:"Fertilizer Cost (₹)",
+labour:"Labour Cost (₹)",
+pest:"Pesticide Cost (₹)",
+water:"Irrigation Cost (₹)",
+calc:"Calculate Total",
+print:"Print Report",
+total:"Total Cost",
+report:"Expense Report"
+},
+te:{
+title:"రైతు ఖర్చుల కాలిక్యులేటర్",
+seed:"విత్తనాల ఖర్చు (₹)",
+fert:"ఎరువుల ఖర్చు (₹)",
+labour:"కూలీల ఖర్చు (₹)",
+pest:"పురుగుమందుల ఖర్చు (₹)",
+water:"నీటి ఖర్చు (₹)",
+calc:"మొత్తం లెక్కించు",
+print:"రిపోర్ట్ ప్రింట్ చేయండి",
+total:"మొత్తం ఖర్చు",
+report:"ఖర్చుల నివేదిక"
+}
+};
+
+function changeLanguage(){
+
+currentLanguage=document.getElementById("language").value;
+
+let t=words[currentLanguage];
+
+title.innerHTML=t.title;
+seedLabel.innerHTML=t.seed;
+fertLabel.innerHTML=t.fert;
+labourLabel.innerHTML=t.labour;
+pestLabel.innerHTML=t.pest;
+waterLabel.innerHTML=t.water;
+calcBtn.innerHTML=t.calc;
+printBtn.innerHTML=t.print;
+
+calculate();
+}
+
+function calculate(){
+
+let seed=Number(document.getElementById("seed").value)||0;
+let fert=Number(document.getElementById("fertilizer").value)||0;
+let labour=Number(document.getElementById("labour").value)||0;
+let pest=Number(document.getElementById("pesticide").value)||0;
+let water=Number(document.getElementById("irrigation").value)||0;
+
+let total=seed+fert+labour+pest+water;
+
+let t=words[currentLanguage];
+
+document.getElementById("total").innerHTML=
+t.total+": ₹"+total.toLocaleString();
+
+document.getElementById("report").innerHTML=`
+<h3>${t.report}</h3>
+<p>${t.seed}: ₹${seed.toLocaleString()}</p>
+<p>${t.fert}: ₹${fert.toLocaleString()}</p>
+<p>${t.labour}: ₹${labour.toLocaleString()}</p>
+<p>${t.pest}: ₹${pest.toLocaleString()}</p>
+<p>${t.water}: ₹${water.toLocaleString()}</p>
+<hr>
+<h2>${t.total}: ₹${total.toLocaleString()}</h2>
+`;
+
+}
+
+</script>
+
+</body>
+</html>
