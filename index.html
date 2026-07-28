@@ -130,6 +130,7 @@ let price = Number(document.getElementById("price").value) || 0;
 let totalIncome = totalYield * price;
 
 let profitLoss = totalIncome - totalExpense;
+  let color = profitLoss >= 0 ? "green" : "red";
 
 document.querySelector(".result").innerHTML =
 `
@@ -141,7 +142,9 @@ document.querySelector(".result").innerHTML =
 
 <p>Total Income: ₹ ${totalIncome.toLocaleString()}</p>
 
-<p>Profit / Loss: ₹ ${profitLoss.toLocaleString()}</p>
+<p style="color:${color};font-weight:bold;">
+Profit / Loss: ₹ ${profitLoss.toLocaleString()}
+</p>
 `;
 }
 function printReport(){
