@@ -430,7 +430,36 @@ document.querySelectorAll("label")[13].innerHTML="Price Per Quintal";
 <input type="date" id="date">
 
 </div>
+<div class="dashboard">
 
+<div class="card">
+<h3>💰 Expense</h3>
+<h2 id="expenseCard">₹0</h2>
+</div>
+
+<div class="card">
+<h3>💵 Income</h3>
+<h2 id="incomeCard">₹0</h2>
+</div>
+
+<div class="card">
+<h3>📈 Profit</h3>
+<h2 id="profitCard">₹0</h2>
+</div>
+
+<div class="card">
+<h3>🌾 Cost/Acre</h3>
+<h2 id="acreCard">₹0</h2>
+</div>
+
+</div>
+<div class="result">
+
+Total Expense : ₹0
+
+</div>
+<div class="section">
+<h2>📊 Expense Chart</h2>
 <div class="section">
 
 <h2>💰 Expense Details</h2>
@@ -479,36 +508,7 @@ Calculate Expense
   <button onclick="printReport()">
 📄 Print Report
   </button>
-<div class="dashboard">
 
-<div class="card">
-<h3>💰 Expense</h3>
-<h2 id="expenseCard">₹0</h2>
-</div>
-
-<div class="card">
-<h3>💵 Income</h3>
-<h2 id="incomeCard">₹0</h2>
-</div>
-
-<div class="card">
-<h3>📈 Profit</h3>
-<h2 id="profitCard">₹0</h2>
-</div>
-
-<div class="card">
-<h3>🌾 Cost/Acre</h3>
-<h2 id="acreCard">₹0</h2>
-</div>
-
-</div>
-<div class="result">
-
-Total Expense : ₹0
-
-</div>
-<div class="section">
-<h2>📊 Expense Chart</h2>
 
 <canvas id="expenseChart"></canvas>
 
