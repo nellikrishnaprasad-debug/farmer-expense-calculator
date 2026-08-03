@@ -100,6 +100,38 @@ font-size:24px;
 }
 
 }
+  .dashboard{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+.card{
+background:#fff;
+border-radius:12px;
+padding:15px;
+text-align:center;
+box-shadow:0 5px 10px rgba(0,0,0,.15);
+border-left:5px solid #2e7d32;
+}
+
+.card h3{
+color:#2e7d32;
+font-size:18px;
+margin-bottom:8px;
+}
+
+.card h2{
+font-size:24px;
+color:#111;
+}
+
+@media(max-width:600px){
+.dashboard{
+grid-template-columns:1fr;
+}
+}
 </style>
 
 </head>
@@ -180,6 +212,17 @@ chart = new Chart(ctx,{
         responsive:true
     }
 });
+  document.getElementById("expenseCard").innerHTML =
+"₹ " + totalExpense.toLocaleString();
+
+document.getElementById("incomeCard").innerHTML =
+"₹ " + totalIncome.toLocaleString();
+
+document.getElementById("profitCard").innerHTML =
+"₹ " + profitLoss.toLocaleString();
+
+document.getElementById("acreCard").innerHTML =
+"₹ " + perAcre.toFixed(2);
 saveData();
 
 }
@@ -436,7 +479,29 @@ Calculate Expense
   <button onclick="printReport()">
 📄 Print Report
   </button>
+<div class="dashboard">
 
+<div class="card">
+<h3>💰 Expense</h3>
+<h2 id="expenseCard">₹0</h2>
+</div>
+
+<div class="card">
+<h3>💵 Income</h3>
+<h2 id="incomeCard">₹0</h2>
+</div>
+
+<div class="card">
+<h3>📈 Profit</h3>
+<h2 id="profitCard">₹0</h2>
+</div>
+
+<div class="card">
+<h3>🌾 Cost/Acre</h3>
+<h2 id="acreCard">₹0</h2>
+</div>
+
+</div>
 <div class="result">
 
 Total Expense : ₹0
