@@ -80,13 +80,21 @@ background:#1b5e20;
 }
 
 .result{
+
 margin-top:20px;
-padding:15px;
-background:#e8f5e9;
-border-radius:10px;
+
+padding:20px;
+
+background:white;
+
+border:2px solid green;
+
+border-radius:12px;
+
 font-size:20px;
+
 font-weight:bold;
-text-align:center;
+
 }
 
 @media(max-width:600px){
@@ -171,7 +179,12 @@ let profitLoss = totalIncome - totalExpense;
 let color = profitLoss >= 0 ? "green" : "red";
 
 document.querySelector(".result").innerHTML = `
-<h2>🌾 Farm Report</h2>
+
+<h2 style="text-align:center;color:green;">
+🌾 Smart Farmer Expense Report
+</h2>
+
+<hr>
 
 <p>Total Expense: ₹ ${totalExpense.toLocaleString()}</p>
 
@@ -460,7 +473,7 @@ document.querySelectorAll("label")[13].innerHTML="Price Per Quintal";
 </div>
 
 </div>
-<div class="result">
+<div class="result" id="reportSection">
 
 Total Expense : ₹0
 
@@ -558,19 +571,34 @@ chart=null;
   }
   function downloadPDF(){
 
-const element = document.querySelector(".container");
+const element = document.getElementById("reportSection");
 
 const options = {
-    margin:0.5,
-    filename:"Farmer_Expense_Report.pdf",
-    image:{type:"jpeg",quality:1},
-    html2canvas:{scale:2},
-    jsPDF:{unit:"in",format:"a4",orientation:"portrait"}
+
+margin:0.5,
+
+filename:"Farmer_Report.pdf",
+
+image:{
+type:"jpeg",
+quality:1
+},
+
+html2canvas:{
+scale:2
+},
+
+jsPDF:{
+unit:"in",
+format:"a4",
+orientation:"portrait"
+}
+
 };
 
 html2pdf().set(options).from(element).save();
 
-  }
+}
 </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
