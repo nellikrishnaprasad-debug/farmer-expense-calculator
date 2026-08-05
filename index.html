@@ -3,33 +3,25 @@
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>🌾 Smart Farmer Expense Manager</title>
+<title>🌾 Smart Farmer Expense Manager V2</title>
 
 <link rel="stylesheet" href="style.css">
-
-<script defer src="script.js"></script>
 
 </head>
 
 <body>
 
 <div class="container">
-<body>
 
-<div class="container">
-
-<button onclick="changeLanguage()" id="langBtn">
+<button id="langBtn" onclick="changeLanguage()">
 🌐 తెలుగు
 </button>
 
-<h1>🌾 Smart Farmer Expense Manager</h1>
-
-<div class="section">
-<h1>🌾 Smart Farmer Expense Manager</h1>
+<h1 id="title">
+🌾 Smart Farmer Expense Manager
+</h1>
 
 <div class="section">
 
@@ -61,6 +53,7 @@ content="width=device-width, initial-scale=1.0">
 <input type="date" id="date">
 
 </div>
+
 <div class="dashboard">
 
 <div class="card">
@@ -84,18 +77,10 @@ content="width=device-width, initial-scale=1.0">
 </div>
 
 </div>
-<div class="result" id="reportSection">
 
-Total Expense : ₹0
+  <div class="section">
 
-</div>
-<div class="section">
-<h2>📊 Expense Chart</h2>
-<canvas id="expenseChart"></canvas>
-  
-<div class="section">
 <h2>💰 Expense Details</h2>
-  
 
 <label>Seed Cost (₹)</label>
 <input type="number" id="seed">
@@ -123,7 +108,7 @@ Total Expense : ₹0
 
 </div>
 
-  <div class="section">
+<div class="section">
 
 <h2>📈 Income Details</h2>
 
@@ -134,83 +119,46 @@ Total Expense : ₹0
 <input type="number" id="price">
 
 </div>
-  <button onclick="calculateExpense()">
-Calculate Expense
-  </button>
-  <button onclick="printReport()">
-📄 Print Report
-  </button>
 
-  <button onclick="downloadPDF()">
-📄 Download PDF
-  </button>
+<button onclick="calculateExpense()">
+💰 Calculate Expense
+</button>
+
+<button onclick="printReport()">
+📄 Print Report
+</button>
+
+<button onclick="downloadPDF()">
+📥 Download PDF
+</button>
 
 <button onclick="resetForm()">
 🔄 Reset Form
 </button>
 
+<div class="section">
+
+<h2>📊 Expense Chart</h2>
+
+<canvas id="expenseChart"></canvas>
 
 </div>
+
+<div class="result" id="reportSection">
+
+<h2>🌾 Smart Farmer Expense Report</h2>
+
+<p>Total Expense : ₹0</p>
+
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js">
-  function resetForm(){
 
-if(confirm("Are you sure you want to reset all data?")){
+</div>
 
-document.querySelectorAll("input").forEach(input=>{
-input.value="";
-});
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-document.getElementById("crop").selectedIndex=0;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-document.querySelector(".result").innerHTML="Total Expense : ₹0";
+<script src="script.js"></script>
 
-document.getElementById("expenseCard").innerHTML="₹0";
-document.getElementById("incomeCard").innerHTML="₹0";
-document.getElementById("profitCard").innerHTML="₹0";
-document.getElementById("acreCard").innerHTML="₹0";
-
-localStorage.clear();
-
-if(chart){
-chart.destroy();
-chart=null;
-}
-
-}
-
-  }
-  function downloadPDF(){
-
-const element = document.getElementById("reportSection");
-
-const options = {
-
-margin:0.5,
-
-filename:"Farmer_Report.pdf",
-
-image:{
-type:"jpeg",
-quality:1
-},
-
-html2canvas:{
-scale:2
-},
-
-jsPDF:{
-unit:"in",
-format:"a4",
-orientation:"portrait"
-}
-
-};
-
-html2pdf().set(options).from(element).save();
-
-}
-</script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
 </html>
