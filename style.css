@@ -1,54 +1,47 @@
-<style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,sans-serif;
 }
-  
+
 body{
-background:linear-gradient(135deg,#dff6dd,#f5fff0);
+background:#f2f8f2;
 padding:20px;
 }
 
 .container{
-max-width:700px;
+max-width:900px;
 margin:auto;
 background:#fff;
 padding:20px;
 border-radius:15px;
-box-shadow:0 8px 20px rgba(0,0,0,.15);
+box-shadow:0 5px 15px rgba(0,0,0,.2);
 }
 
 h1{
 text-align:center;
-color:#2e7d32;
+color:green;
 margin-bottom:20px;
 }
 
 .section{
 margin-top:20px;
 padding:15px;
-background:#f8fff6;
+background:#f9fff9;
 border-radius:10px;
-border-left:5px solid #2e7d32;
-}
-
-.section h2{
-color:#2e7d32;
-margin-bottom:15px;
-font-size:20px;
+border:1px solid #ddd;
 }
 
 label{
 display:block;
-margin-top:12px;
+margin-top:10px;
 font-weight:bold;
 }
 
 input,select{
 width:100%;
-padding:12px;
+padding:10px;
 margin-top:5px;
 border:1px solid #ccc;
 border-radius:8px;
@@ -57,50 +50,21 @@ font-size:16px;
 
 button{
 width:100%;
-padding:14px;
-margin-top:20px;
-background:#2e7d32;
+padding:12px;
+margin-top:15px;
+background:green;
 color:white;
 border:none;
 border-radius:8px;
-font-size:18px;
+font-size:17px;
 cursor:pointer;
 }
 
 button:hover{
-background:#1b5e20;
+background:#0b6b0b;
 }
 
-.result{
-
-margin-top:20px;
-
-padding:20px;
-
-background:white;
-
-border:2px solid green;
-
-border-radius:12px;
-
-font-size:20px;
-
-font-weight:bold;
-
-}
-
-@media(max-width:600px){
-
-.container{
-padding:15px;
-}
-
-h1{
-font-size:24px;
-}
-
-}
-  .dashboard{
+.dashboard{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:15px;
@@ -108,35 +72,38 @@ margin-top:20px;
 }
 
 .card{
-background:#fff;
-border-radius:12px;
+background:#e8f5e9;
 padding:15px;
+border-radius:10px;
 text-align:center;
-box-shadow:0 5px 10px rgba(0,0,0,.15);
-border-left:5px solid #2e7d32;
+box-shadow:0 2px 5px rgba(0,0,0,.15);
 }
 
 .card h3{
 color:#2e7d32;
-font-size:18px;
-margin-bottom:8px;
 }
 
 .card h2{
-font-size:24px;
-color:#111;
+margin-top:10px;
+}
+
+.result{
+margin-top:20px;
+padding:20px;
+background:#fff;
+border:2px solid green;
+border-radius:10px;
+}
+
+canvas{
+margin-top:20px;
+max-width:100%;
 }
 
 @media(max-width:600px){
+
 .dashboard{
 grid-template-columns:1fr;
 }
-}
-  button:last-of-type{
-background:#d32f2f;
-}
 
-button:last-of-type:hover{
-background:#b71c1c;
 }
-</style>
