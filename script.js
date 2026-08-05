@@ -1,254 +1,437 @@
-<script>
-  let chart = null;
-function calculateExpense(){
+let chart = null;
+let telugu = false;
 
-let seed = Number(document.getElementById("seed").value) || 0;
-let fert = Number(document.getElementById("fert").value) || 0;
-let labour = Number(document.getElementById("labour").value) || 0;
-let pesticide = Number(document.getElementById("pesticide").value) || 0;
-let irrigation = Number(document.getElementById("irrigation").value) || 0;
-let tractor = Number(document.getElementById("tractor").value) || 0;
-let diesel = Number(document.getElementById("diesel").value) || 0;
-let other = Number(document.getElementById("other").value) || 0;
+function calculateExpense() {
 
-let acres = Number(document.getElementById("acres").value) || 1;
+const seed = Number(document.getElementById("seed").value) || 0;
+const fert = Number(document.getElementById("fert").value) || 0;
+const labour = Number(document.getElementById("labour").value) || 0;
+const pesticide = Number(document.getElementById("pesticide").value) || 0;
+const irrigation = Number(document.getElementById("irrigation").value) || 0;
+const tractor = Number(document.getElementById("tractor").value) || 0;
+const diesel = Number(document.getElementById("diesel").value) || 0;
+const other = Number(document.getElementById("other").value) || 0;
 
-let totalExpense = seed + fert + labour + pesticide +
+const acres = Number(document.getElementById("acres").value) || 1;
+const yieldQty = Number(document.getElementById("yield").value) || 0;
+const price = Number(document.getElementById("price").value) || 0;
+
+const totalExpense =
+seed + fert + labour + pesticide +
 irrigation + tractor + diesel + other;
 
-let perAcre = totalExpense / acres;
+const totalIncome = yieldQty * price;
+const perAcre = totalExpense / acres;
+const profitLoss = totalIncome - totalExpense;
 
-let totalYield = Number(document.getElementById("yield").value) || 0;
-let price = Number(document.getElementById("price").value) || 0;
-
-let totalIncome = totalYield * price;
-let profitLoss = totalIncome - totalExpense;
-
-let color = profitLoss >= 0 ? "green" : "red";
-
-document.querySelector(".result").innerHTML = `
-
-<h2 style="text-align:center;color:green;">
-🌾 Smart Farmer Expense Report
-</h2>
-
-<hr>
-
-<p>Total Expense: ₹ ${totalExpense.toLocaleString()}</p>
-
-<p>Cost Per Acre: ₹ ${perAcre.toFixed(2)}</p>
-
-<p>Total Income: ₹ ${totalIncome.toLocaleString()}</p>
-
-<p style="color:${color};font-weight:bold;">
-Profit / Loss: ₹ ${profitLoss.toLocaleString()}
-</p>
-`;
-if(chart){
-    chart.destroy();
-}
-
-const ctx = document.getElementById("expenseChart").getContext("2d");
-
-chart = new Chart(ctx,{
-    type:"pie",
-    data:{
-        labels:[
-            "Seed",
-            "Fertilizer",
-            "Labour",
-            "Pesticide",
-            "Irrigation",
-            "Tractor",
-            "Diesel",
-            "Other"
-        ],
-        datasets:[{
-            data:[
-                seed,
-                fert,
-                labour,
-                pesticide,
-                irrigation,
-                tractor,
-                diesel,
-                other
-            ]
-        }]
-    },
-    options:{
-        responsive:true
-    }
-});
-  document.getElementById("expenseCard").innerHTML =
+document.getElementById("expenseCard").textContent =
 "₹ " + totalExpense.toLocaleString();
 
-document.getElementById("incomeCard").innerHTML =
+document.getElementById("incomeCard").textContent =
 "₹ " + totalIncome.toLocaleString();
 
-document.getElementById("profitCard").innerHTML =
+document.getElementById("profitCard").textContent =
 "₹ " + profitLoss.toLocaleString();
 
-document.getElementById("acreCard").innerHTML =
+document.getElementById("acreCard").textContent =
 "₹ " + perAcre.toFixed(2);
+
+const color = profitLoss >= 0 ? "green" : "red";
+
+document.getElementById("reportSection").innerHTML = `
+<h2 style="text-align:center;color:green">
+🌾 Smart Farmer Expense Report
+</h2>
+<hr>
+
+<p><b>Total Expense :</b> ₹ ${totalExpense.toLocaleString()}</p>
+
+<p><b>Cost Per Acre :</b> ₹ ${perAcre.toFixed(2)}</p>
+
+<p><b>Total Income :</b> ₹ ${totalIncome.toLocaleString()}</p>
+
+<p style="color:${color};font-weight:bold;">
+<b>Profit / Loss :</b> ₹ ${profitLoss.toLocaleString()}
+</p>
+`;
+
+drawChart(
+seed,
+fert,
+labour,
+pesticide,
+irrigation,
+tractor,
+diesel,
+other
+);
+
 saveData();
 
 }
+
+function drawChart(
+seed,
+fert,
+labour,
+pesticide,
+irrigation,
+tractor,
+diesel,
+other
+){
+
+if(chart){
+chart.destroy();
+}
+
+const ctx =
+document.getElementById("expenseChart").getContext("2d");
+
+chart = new Chart(ctx,{
+type:"pie",
+data:{
+labels:[
+"Seed",
+"Fertilizer",
+"Labour",
+"Pesticide",
+"Irrigation",
+"Tractor",
+"Diesel",
+"Other"
+],
+datasets:[{
+data:[
+seed,
+fert,
+labour,
+pesticide,
+irrigation,
+tractor,
+diesel,
+other
+]
+}]
+},
+options:{
+responsive:true,
+plugins:{
+legend:{
+position:"bottom"
+}
+}
+}
+});
+
+}
+
 function printReport(){
 
-let farmer = document.getElementById("farmerName").value || "N/A";
-let village = document.getElementById("village").value || "N/A";
-let crop = document.getElementById("crop").value || "N/A";
-let date = document.getElementById("date").value || "N/A";
+const farmer=document.getElementById("farmerName").value || "N/A";
+const village=document.getElementById("village").value || "N/A";
+const crop=document.getElementById("crop").value || "N/A";
+const date=document.getElementById("date").value || "N/A";
 
-let report = document.querySelector(".result").innerHTML;
+const report=document.getElementById("reportSection").innerHTML;
 
-let printContent = `
+const printWindow=window.open("","","width=900,height=700");
+
+printWindow.document.write(`
 <html>
 <head>
 <title>Farmer Report</title>
 
 <style>
+
 body{
-font-family:Arial;
+font-family:Arial,sans-serif;
 padding:20px;
 }
 
 h1{
-text-align:center;
 color:green;
+text-align:center;
 }
 
-.box{
-border:1px solid #ccc;
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+table,th,td{
+border:1px solid #333;
+}
+
+th,td{
+padding:8px;
+text-align:left;
+}
+
+.report{
+margin-top:20px;
 padding:15px;
-border-radius:10px;
+border:1px solid green;
+border-radius:8px;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<h1>🌾 Smart Farmer Report</h1>
+<h1>🌾 Smart Farmer Expense Report</h1>
 
-<div class="box">
+<table>
 
-<h3>Farmer Details</h3>
+<tr>
+<th>Farmer Name</th>
+<td>${farmer}</td>
+</tr>
 
-<p>Farmer Name: ${farmer}</p>
-<p>Village: ${village}</p>
-<p>Crop: ${crop}</p>
-<p>Date: ${date}</p>
+<tr>
+<th>Village</th>
+<td>${village}</td>
+</tr>
 
-<hr>
+<tr>
+<th>Crop</th>
+<td>${crop}</td>
+</tr>
 
-<h3>Calculation Report</h3>
+<tr>
+<th>Date</th>
+<td>${date}</td>
+</tr>
+
+</table>
+
+<div class="report">
 
 ${report}
 
 </div>
 
 </body>
+
 </html>
+`);
+
+printWindow.document.close();
+printWindow.focus();
+printWindow.print();
+
+}
+
+function downloadPDF(){
+
+const element=document.getElementById("reportSection");
+
+const options={
+
+margin:0.5,
+
+filename:"Farmer_Expense_Report.pdf",
+
+image:{
+type:"jpeg",
+quality:1
+},
+
+html2canvas:{
+scale:2
+},
+
+jsPDF:{
+unit:"in",
+format:"a4",
+orientation:"portrait"
+}
+
+};
+
+html2pdf().set(options).from(element).save();
+
+}
+
+function saveData(){
+
+const ids=[
+"farmerName",
+"village",
+"crop",
+"date",
+"acres",
+"seed",
+"fert",
+"labour",
+"pesticide",
+"irrigation",
+"tractor",
+"diesel",
+"other",
+"yield",
+"price"
+];
+
+ids.forEach(id=>{
+
+const el=document.getElementById(id);
+
+if(el){
+
+localStorage.setItem(id,el.value);
+
+}
+
+});
+
+}
+
+function loadData(){
+
+const ids=[
+"farmerName",
+"village",
+"crop",
+"date",
+"acres",
+"seed",
+"fert",
+"labour",
+"pesticide",
+"irrigation",
+"tractor",
+"diesel",
+"other",
+"yield",
+"price"
+];
+
+ids.forEach(id=>{
+
+const value=localStorage.getItem(id);
+
+const el=document.getElementById(id);
+
+if(el && value!==null){
+
+el.value=value;
+
+}
+
+});
+
+}
+
+function resetForm(){
+
+if(!confirm("Are you sure you want to reset all data?")){
+return;
+}
+
+const ids=[
+"farmerName",
+"village",
+"crop",
+"date",
+"acres",
+"seed",
+"fert",
+"labour",
+"pesticide",
+"irrigation",
+"tractor",
+"diesel",
+"other",
+"yield",
+"price"
+];
+
+ids.forEach(id=>{
+const el=document.getElementById(id);
+if(el){
+el.value="";
+}
+});
+
+document.getElementById("crop").selectedIndex=0;
+
+document.getElementById("reportSection").innerHTML=`
+<h2>🌾 Smart Farmer Expense Report</h2>
+<p>Total Expense : ₹0</p>
 `;
 
-let newWindow = window.open();
+document.getElementById("expenseCard").textContent="₹0";
+document.getElementById("incomeCard").textContent="₹0";
+document.getElementById("profitCard").textContent="₹0";
+document.getElementById("acreCard").textContent="₹0";
 
-newWindow.document.write(printContent);
+localStorage.clear();
 
-newWindow.document.close();
-
-newWindow.print();
-
-}
-  function saveData() {
-
-const ids = [
-"farmerName","village","crop","date","acres",
-"seed","fert","labour","pesticide",
-"irrigation","tractor","diesel","other",
-"yield","price"
-];
-
-ids.forEach(id=>{
-localStorage.setItem(id, document.getElementById(id).value);
-});
-
+if(chart){
+chart.destroy();
+chart=null;
 }
 
-function loadData() {
-
-const ids = [
-"farmerName","village","crop","date","acres",
-"seed","fert","labour","pesticide",
-"irrigation","tractor","diesel","other",
-"yield","price"
-];
-
-ids.forEach(id=>{
-let value = localStorage.getItem(id);
-if(value !== null){
-document.getElementById(id).value = value;
 }
-});
-
-}
-
-window.onload = loadData;
-  let telugu = false;
 
 function changeLanguage(){
 
-telugu = !telugu;
+telugu=!telugu;
+
+const labels=document.querySelectorAll("label");
 
 if(telugu){
 
-document.getElementById("langBtn").innerHTML="🌐 English";
+document.getElementById("langBtn").textContent="🌐 English";
+document.getElementById("title").textContent="🌾 స్మార్ట్ రైతు ఖర్చుల కాలిక్యులేటర్";
 
-document.querySelector("h1").innerHTML="🌾 స్మార్ట్ రైతు ఖర్చుల కాలిక్యులేటర్";
-
-document.querySelectorAll("label")[0].innerHTML="రైతు పేరు";
-document.querySelectorAll("label")[1].innerHTML="గ్రామం";
-document.querySelectorAll("label")[2].innerHTML="పంట మొత్తం ఎకరాలు";
-document.querySelectorAll("label")[3].innerHTML="తేదీ";
-
-document.querySelectorAll("label")[4].innerHTML="విత్తనాల ఖర్చు";
-document.querySelectorAll("label")[5].innerHTML="ఎరువుల ఖర్చు";
-document.querySelectorAll("label")[6].innerHTML="కూలీల ఖర్చు";
-document.querySelectorAll("label")[7].innerHTML="పురుగుమందుల ఖర్చు";
-document.querySelectorAll("label")[8].innerHTML="నీటి ఖర్చు";
-document.querySelectorAll("label")[9].innerHTML="ట్రాక్టర్ ఖర్చు";
-document.querySelectorAll("label")[10].innerHTML="డీజిల్ ఖర్చు";
-document.querySelectorAll("label")[11].innerHTML="ఇతర ఖర్చులు";
-
-document.querySelectorAll("label")[12].innerHTML="మొత్తం దిగుబడి (క్వింటాళ్లు)";
-document.querySelectorAll("label")[13].innerHTML="క్వింటాల్ ధర";
+labels[0].textContent="రైతు పేరు";
+labels[1].textContent="గ్రామం";
+labels[2].textContent="పంట పేరు";
+labels[3].textContent="మొత్తం ఎకరాలు";
+labels[4].textContent="తేదీ";
+labels[5].textContent="విత్తనాల ఖర్చు";
+labels[6].textContent="ఎరువుల ఖర్చు";
+labels[7].textContent="కూలీల ఖర్చు";
+labels[8].textContent="పురుగుమందుల ఖర్చు";
+labels[9].textContent="నీటి ఖర్చు";
+labels[10].textContent="ట్రాక్టర్ ఖర్చు";
+labels[11].textContent="డీజిల్ ఖర్చు";
+labels[12].textContent="ఇతర ఖర్చులు";
+labels[13].textContent="మొత్తం దిగుబడి";
+labels[14].textContent="క్వింటాల్ ధర";
 
 }else{
 
-document.getElementById("langBtn").innerHTML="🌐 తెలుగు";
+document.getElementById("langBtn").textContent="🌐 తెలుగు";
+document.getElementById("title").textContent="🌾 Smart Farmer Expense Manager";
 
-document.querySelector("h1").innerHTML="🌾 Smart Farmer Expense Manager";
-
-document.querySelectorAll("label")[0].innerHTML="Farmer Name";
-document.querySelectorAll("label")[1].innerHTML="Village";
-document.querySelectorAll("label")[2].innerHTML="Total Acres";
-document.querySelectorAll("label")[3].innerHTML="Date";
-
-document.querySelectorAll("label")[4].innerHTML="Seed Cost";
-document.querySelectorAll("label")[5].innerHTML="Fertilizer Cost";
-document.querySelectorAll("label")[6].innerHTML="Labour Cost";
-document.querySelectorAll("label")[7].innerHTML="Pesticide Cost";
-document.querySelectorAll("label")[8].innerHTML="Irrigation Cost";
-document.querySelectorAll("label")[9].innerHTML="Tractor Cost";
-document.querySelectorAll("label")[10].innerHTML="Diesel Cost";
-document.querySelectorAll("label")[11].innerHTML="Other Expenses";
-
-document.querySelectorAll("label")[12].innerHTML="Total Yield (Quintals)";
-document.querySelectorAll("label")[13].innerHTML="Price Per Quintal";
+labels[0].textContent="Farmer Name";
+labels[1].textContent="Village";
+labels[2].textContent="Crop Name";
+labels[3].textContent="Total Acres";
+labels[4].textContent="Date";
+labels[5].textContent="Seed Cost";
+labels[6].textContent="Fertilizer Cost";
+labels[7].textContent="Labour Cost";
+labels[8].textContent="Pesticide Cost";
+labels[9].textContent="Irrigation Cost";
+labels[10].textContent="Tractor Cost";
+labels[11].textContent="Diesel Cost";
+labels[12].textContent="Other Expenses";
+labels[13].textContent="Total Yield (Quintals)";
+labels[14].textContent="Price Per Quintal";
 
 }
 
 }
-</script>
+
+window.onload=function(){
+
+loadData();
+
+};
