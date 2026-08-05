@@ -227,9 +227,13 @@ printWindow.print();
 
 function downloadPDF(){
 
-const element=document.getElementById("reportSection");
+calculateExpense();
 
-const options={
+setTimeout(()=>{
+
+const element=document.querySelector(".container");
+
+html2pdf().set({
 
 margin:0.5,
 
@@ -237,11 +241,12 @@ filename:"Farmer_Expense_Report.pdf",
 
 image:{
 type:"jpeg",
-quality:1
+quality:0.98
 },
 
 html2canvas:{
-scale:2
+scale:2,
+useCORS:true
 },
 
 jsPDF:{
@@ -250,9 +255,9 @@ format:"a4",
 orientation:"portrait"
 }
 
-};
+}).from(element).save();
 
-html2pdf().set(options).from(element).save();
+},500);
 
 }
 
