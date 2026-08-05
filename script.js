@@ -227,41 +227,22 @@ printWindow.print();
 
 function downloadPDF(){
 
-calculateExpense();
+const report = `
+<h1>Farmer Expense Report</h1>
 
-setTimeout(()=>{
+<p>Total Expense : ${document.getElementById("expenseCard").textContent}</p>
 
-const element=document.getElementById("reportSection");
+<p>Total Income : ${document.getElementById("incomeCard").textContent}</p>
 
-html2pdf().set({
+<p>Profit / Loss : ${document.getElementById("profitCard").textContent}</p>
 
-margin:10,
+<p>Cost Per Acre : ${document.getElementById("acreCard").textContent}</p>
+`;
 
-filename:"Farmer_Expense_Report.pdf",
+const div = document.createElement("div");
+div.innerHTML = report;
 
-image:{
-type:"jpeg",
-quality:1
-},
-
-html2canvas:{
-scale:2,
-useCORS:true
-},
-
-jsPDF:{
-unit:"mm",
-format:"a4",
-orientation:"portrait"
-},
-
-pagebreak:{
-mode:["avoid-all","css","legacy"]
-}
-
-}).from(element).save();
-
-},1000);
+html2pdf().from(div).save("Farmer_Expense_Report.pdf");
 
 }
 
