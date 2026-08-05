@@ -132,6 +132,13 @@ color:#111;
 grid-template-columns:1fr;
 }
 }
+  button:last-of-type{
+background:#d32f2f;
+}
+
+button:last-of-type:hover{
+background:#b71c1c;
+}
 </style>
 
 </head>
@@ -510,11 +517,41 @@ Calculate Expense
 📄 Print Report
   </button>
 
-
+<button onclick="resetForm()">
+🔄 Reset Form
+</button>
 
 
 </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+  function resetForm(){
+
+if(confirm("Are you sure you want to reset all data?")){
+
+document.querySelectorAll("input").forEach(input=>{
+input.value="";
+});
+
+document.getElementById("crop").selectedIndex=0;
+
+document.querySelector(".result").innerHTML="Total Expense : ₹0";
+
+document.getElementById("expenseCard").innerHTML="₹0";
+document.getElementById("incomeCard").innerHTML="₹0";
+document.getElementById("profitCard").innerHTML="₹0";
+document.getElementById("acreCard").innerHTML="₹0";
+
+localStorage.clear();
+
+if(chart){
+chart.destroy();
+chart=null;
+}
+
+}
+
+  }
+</script>
 </body>
 </html>
