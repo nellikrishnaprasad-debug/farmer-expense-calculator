@@ -517,6 +517,10 @@ Calculate Expense
 📄 Print Report
   </button>
 
+  <button onclick="downloadPDF()">
+📄 Download PDF
+  </button>
+
 <button onclick="resetForm()">
 🔄 Reset Form
 </button>
@@ -552,6 +556,22 @@ chart=null;
 }
 
   }
+  function downloadPDF(){
+
+const element = document.querySelector(".container");
+
+const options = {
+    margin:0.5,
+    filename:"Farmer_Expense_Report.pdf",
+    image:{type:"jpeg",quality:1},
+    html2canvas:{scale:2},
+    jsPDF:{unit:"in",format:"a4",orientation:"portrait"}
+};
+
+html2pdf().set(options).from(element).save();
+
+  }
 </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
 </html>
