@@ -231,7 +231,7 @@ calculateExpense();
 
 setTimeout(()=>{
 
-const element=document.querySelector(".container");
+const element=document.getElementById("reportSection");
 
 html2pdf().set({
 
@@ -261,7 +261,7 @@ mode:["avoid-all","css","legacy"]
 
 }).from(element).save();
 
-},500);
+},1000);
 
 }
 
