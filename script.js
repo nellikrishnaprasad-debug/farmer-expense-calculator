@@ -235,13 +235,13 @@ const element=document.querySelector(".container");
 
 html2pdf().set({
 
-margin:0.5,
+margin:10,
 
 filename:"Farmer_Expense_Report.pdf",
 
 image:{
 type:"jpeg",
-quality:0.98
+quality:1
 },
 
 html2canvas:{
@@ -250,9 +250,13 @@ useCORS:true
 },
 
 jsPDF:{
-unit:"in",
+unit:"mm",
 format:"a4",
 orientation:"portrait"
+},
+
+pagebreak:{
+mode:["avoid-all","css","legacy"]
 }
 
 }).from(element).save();
